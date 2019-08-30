@@ -45,7 +45,7 @@ def action_wrapper(hermes, intentMessage, conf):
     import html
     joke = requests.get("https://chucknorrisfacts.fr/api/get?data=tri:alea;nb:1")
     joke = html.unescape(joke.json()[0]['fact'])
-    joke = joke.replace("Chuck Norris", "Glados")
+    joke = joke.replace("Chuck Norris", "Gladosse")
     hermes.publish_end_session(intentMessage.session_id, joke)
     
 
@@ -55,5 +55,5 @@ if __name__ == "__main__":
     config = toml.load(f)
     mqtt_opts = MqttOptions(username=config["snips-common"]["mqtt_username"], password=config["snips-common"]["mqtt_password"], broker_address=config["snips-common"]["mqtt"])
     with Hermes(mqtt_options=mqtt_opts) as h:
-        h.subscribe_intent("Kilawyn:LookupJoke", subscribe_intent_callback) \
+        h.subscribe_intent("Kilawyn:askJoke", subscribe_intent_callback) \
          .start()
